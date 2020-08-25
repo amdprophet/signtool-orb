@@ -1,0 +1,28 @@
+parameters:
+  path:
+    description: Path to signtool.exe (Windows-style).
+    type: string
+    default: 'C:\Program Files (x86)\Windows Kits\10\bin\x64\signtool.exe'
+  timestamp_server:
+    description: URL of the RFC 3161 time stamp server.
+    type: string
+    default: http://timestamp.digicert.com
+  working_directory:
+    type: string
+    default: '.'
+  certificate:
+    description: Absolute path to the signing certificate (Windows-style).
+    type: string
+    default: '${env:CIRCLE_WORKING_DIRECTORY}\packaging\codesign-cert.p12'
+  file:
+    description: Name of the file to sign.
+    type: string
+steps:  
+  - run:
+      shell: powershell.exe
+      working_directory: << parameters.working_directory >>
+      command: >
+        & "<< parameters.path >>" sign /tr << parameters.timestamp_server >>
+        /td sha256 /f (Resolve-Path << parameters.certificate >>).Path
+        /p $env:CODESIGN_SECRET /fd sha256
+        /a (Resolve-Path << parameters.file >>).Path

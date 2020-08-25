@@ -1,0 +1,15 @@
+parameters:
+  working_directory:
+    type: string
+    default: '.'
+  certificate:
+    description: Name of the signing certificate.
+    type: string
+steps:
+  - run:
+      shell: powershell.exe
+      working_directory: << parameters.working_directory >>
+      command: >
+        Import-PfxCertificate -FilePath << parameters.certificate >>
+        -CertStoreLocation Cert:\LocalMachine\My `
+        -Password (ConvertTo-SecureString -String $env:CODESIGN_SECRET -AsPlainText -Force)
