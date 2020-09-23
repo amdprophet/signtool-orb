@@ -13,12 +13,13 @@ parameters:
   certificate:
     description: Absolute path to the signing certificate (Windows-style).
     type: string
-    default: '${env:CIRCLE_WORKING_DIRECTORY}\packaging\codesign-cert.p12'
+    default: '${env:CIRCLE_WORKING_DIRECTORY}\codesign-cert.p12'
   file:
     description: Name of the file to sign.
     type: string
 steps:  
   - run:
+      name: Sign << parameters.file >> with certificate << parameters.certificate >>
       shell: powershell.exe
       working_directory: << parameters.working_directory >>
       command: >

@@ -3,5 +3,5 @@ version: 2.1
 description: Common CircleCI tasks for signtool.exe.
 
 display:
-  source_url: https://github.com/amdprophet/signtool-orb
+  source_url: https://github.com/sensu/signtool-orb
   home_url: https://docs.microsoft.com/en-us/dotnet/framework/tools/signtool-exe

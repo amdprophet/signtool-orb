@@ -7,6 +7,7 @@ parameters:
     type: string
 steps:
   - run:
+      name: Import certificate << parameters.certificate >>
       shell: powershell.exe
       working_directory: << parameters.working_directory >>
       command: >
